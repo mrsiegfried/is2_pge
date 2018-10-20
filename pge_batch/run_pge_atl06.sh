@@ -11,6 +11,18 @@ if [[ ! -d ${ASASPATH}/asas ]]; then
   exit 1
 fi
 
+if [[ $# -eq 0 ]]; then
+  echo ' '
+  echo ' ' 
+  echo 'Welcome to the PGE batch run script.'
+  echo 'Written by M. Siegfried, 19 Oct 2018 (siegfried@mines.edu)'
+  echo ' '
+  echo USAGE: ${usageline}
+  echo ' ' 
+  echo ' '
+  exit 0
+fi
+
 if [[ $# -ne 3 ]]; then
   echo ERROR: Wrong number of inputs
   echo USAGE: ${usageline}
