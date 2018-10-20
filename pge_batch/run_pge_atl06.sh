@@ -39,6 +39,12 @@ atl03fold=$1
 atl09fold=$2
 atl06fold=$3
 
+count=`ls -1 control/*.ctl 2> /dev/null | wc -l `
+if [[ $count != 0 ]]; then
+  echo Deleting old .ctl files in control
+  rm control/*.ctl
+fi
+
 if [[ -e control/atl03_index.txt ]]; then
   echo Deleting old atl03_index.txt file
   rm control/atl03_index.txt
