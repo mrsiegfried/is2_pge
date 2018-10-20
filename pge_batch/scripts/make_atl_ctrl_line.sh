@@ -4,7 +4,7 @@
 
 if [[ $# -ne 2 ]]; then
   echo "ERROR: Incorrect usage. Requires TWO inputs!"
-  echo "USAGE: $0 /path/to/data/filename.h5 ${ASAS_BASE}"
+  echo "USAGE: $0 /path/to/data/filename.h5 ASAS_BASE_PATH"
   exit 1
 fi
   
