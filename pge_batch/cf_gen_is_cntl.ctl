@@ -1,7 +1,7 @@
 #
 # gen_is_cntl for ATL06 (land ice) control files
 #
-# Created by ./run_pge_atl06.sh on Sat Oct 20 17:11:30 EDT 2018
+# Created by ./run_pge_atl06.sh on Sat Oct 20 18:11:06 EDT 2018
 #
 =gen_is_cntl
 #

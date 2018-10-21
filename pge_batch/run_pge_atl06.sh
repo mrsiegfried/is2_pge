@@ -4,7 +4,7 @@ ASASPATH=${NOBACKUP}/ASASv4.3
 #### Runs an automatic ATL03+ATL09=>ATL06 conversion given folders filled with data
 #### siegfried@mines.edu
 
-usageline="$0 /path/to/atl03 /path/to/atl09 /out/path/for/atl06"
+usageline="$0 /path/to/atl03 /path/to/atl09 /out/path/for/atl06 [num_cores]"
 if [[ ! -d ${ASASPATH}/asas ]]; then 
   echo  "ERROR: Path to top-level folder does not exist"
   echo  "       Edit Line 1 of this script to direct to the right folder!"
@@ -23,7 +23,7 @@ if [[ $# -eq 0 ]]; then
   exit 0
 fi
 
-if [[ $# -ne 3 ]]; then
+if [[ $# -lt 3 || $# -gt 4 ]]; then
   echo ERROR: Wrong number of inputs
   echo USAGE: ${usageline}
   exit 1
@@ -50,6 +50,12 @@ fi
 atl03fold=$1
 atl09fold=$2
 atl06fold=$3
+
+if [[ $4 -gt 0 ]]; then
+  num_core=$4
+else
+  num_core=0
+fi
 
 count=`ls -1 control/*.ctl 2> /dev/null | wc -l `
 if [[ $count != 0 ]]; then
@@ -136,8 +142,19 @@ ${ASASPATH}/asas/src/util/gen_cntl_util/gen_is_cntl cf_gen_is_cntl.ctl
 echo ' '
 echo 'Processing data based on new control file'
 
-for ctlfile in `ls control/*.ctl`
-do
-  echo ... processing ${ctlfile}
-  ${ASASPATH}/asas/src/atlas_l3a_is/atlas_l3a_is ${ctlfile}
-done
+if [[ ${num_core} -eq 0 ]]; then
+  for ctlfile in `ls control/*.ctl`
+  do
+    echo ... processing ${ctlfile}
+    ${ASASPATH}/asas/src/atlas_l3a_is/atlas_l3a_is ${ctlfile}
+  done 
+else
+  ## simple parallelization using parallel
+  ls -1 control/*.ctl > filelist
+  parallel --eta -j $num_core ${ASASPATH}/asas/src/atlas_l3a_is/atlas_l3a_is :::: filelist
+fi
+rm filelist
+
+echo ' '
+echo ' '
+echo done processing
