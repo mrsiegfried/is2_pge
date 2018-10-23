@@ -82,7 +82,7 @@ echo "# Created by : $0 on `date`" >> control/atl03_index.txt
 echo '#' >> control/atl03_index.txt
 echo '=atl03_index' >> control/atl03_index.txt
 
-for file in `ls ${atl03fold}/*.h5`
+for file in `ls ${atl03fold}/ATL03*.h5`
 do
   echo ... adding $file
   scripts/make_atl_ctrl_line.sh ${file} ${ASASPATH} >> control/atl03_index.txt
@@ -96,7 +96,7 @@ echo "# Created by : $0 on `date`" >> control/atl09_index.txt
 echo '#' >> control/atl09_index.txt
 echo '=atl09_index' >> control/atl09_index.txt
 
-for file in `ls ${atl09fold}/*.h5`
+for file in `ls ${atl09fold}/ATL09*.h5`
 do
   echo ... adding $file
   scripts/make_atl_ctrl_line.sh ${file} ${ASASPATH} >> control/atl09_index.txt
