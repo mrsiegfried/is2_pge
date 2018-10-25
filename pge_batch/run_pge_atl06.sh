@@ -47,6 +47,8 @@ if [[ ! -d $3 ]]; then
   exit 1
 fi
 
+echo processing started at `date`
+
 atl03fold=$1
 atl09fold=$2
 atl06fold=$3
@@ -157,4 +159,4 @@ rm filelist
 
 echo ' '
 echo ' '
-echo done processing
+echo done processing at `date`
